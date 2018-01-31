@@ -41,7 +41,7 @@ function receiveData(res, error, resC, done) {
             const link = "http://cotasonline.com.br/" + $($(tds[5]).find("div a")[0]).attr('href');
 
             const juros = calcTax(credito, entrada, totalParcelas, totalObs);
-            const percentual = calcPercentage(credito, entrada + totalParcelas + totalObs);
+            const percentual = calcPercentage(credito, entrada, totalParcelas, totalObs);
 
             data.push({
                 credito: credito,
@@ -115,8 +115,8 @@ function calcTax(credito, entrada, parcelas, obs) {
     return Math.round(tax * 100) / 100;;
 }
 
-function calcPercentage(credito, total) {
+function calcPercentage(credito, entrada, parcelas, obs) {
 
-    const perc = ((total * 100) / credito) - 100;
+    const perc = (((parcelas + obs) * 100) / (credito - entrada)) -100;
     return Math.round(perc * 100) / 100;
 }
